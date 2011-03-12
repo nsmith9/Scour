@@ -47,7 +47,13 @@ xml2 = xml2.replace("abstract","description")
 #removes default XML namespace
 xml2 = xml2.replace('xmlns="http://www.inktomi.com/"',"")
 
-rssOut.write(xml2)
+#adds newlines
+#regex to match <.> . <.>
+pattern = re.compile(r'<.*?>.*?<.*?>')
+
+rss = re.sub(pattern,r"\g<0>"+'\n', xml2)
+
+rssOut.write(rss)
 
 rssOut.flush()
 rssOut.close()
